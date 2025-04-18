@@ -16,7 +16,7 @@ class Category(models.Model):
         verbose_name = "カテゴリ名"
         verbose_name_plural = "カテゴリ名"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.category_name
 
 
@@ -33,5 +33,5 @@ class Blog(models.Model):
         verbose_name = "ブログ記事"
         verbose_name_plural = "ブログ記事"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
