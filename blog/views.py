@@ -59,7 +59,7 @@ def create_done(request):
     return render(request, "blog/create_done.html", {"category_list": category_list})
 
 
-class BlogDetailView(DeleteView):
+class BlogDetailView(DetailView):
     model = Blog
     template_name = "blog/blog_detail.html"
 
