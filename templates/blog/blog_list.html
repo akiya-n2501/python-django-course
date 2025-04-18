@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends './base.html' %}
+    {% block contents%}
+    <div id="wrap" class="clearfix">
+        <div class="content">
+            <div class="main">
+                <h1>記事一覧</h1>
+                {% for item in object_list %}
+                <section>
+                    <h1>{{ item.title }}</h1>
+                    <ul>
+                        <li>
+                            <a>
+                                <img src="http://127.0.0.1:8000/media/{{ item.category.category_image }}">
+                            </a>
+                            <div class="title"><b>{{ item.category }}</b></div>
+                        </li>
+                        <p>
+                            {{ item.content | linebreaksbr | truncatechars:100 }}
+                            <a href="{% url 'blog:detail' item.pk %}">詳しく見る ≫</a>
+                        </p>
+                    </ul>
+                </section>
+                {% endfor %}
+            </div>
+            {% include "blog/widgets/side_category.html" %}
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

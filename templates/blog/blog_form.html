@@ -1,0 +1,34 @@
+{% extends "./base.html" %}
+
+{% block contents %}
+    <div id="wrap" class="clearfix">
+        <div class="content">
+            <div class="main">
+                <section class="career">
+                    {% if message_type == "create"  %}
+                    <h1>記事の新規登録</h1>
+                    {% elif message_type == "edit" %}
+                    <h1>記事の更新</h1>
+                    {% endif %}
+                    <form method="POST">
+                        <table>
+                            {{ form.as_table }}
+                        </table>
+                        {% csrf_token %}
+                            <button class="button" type="submit">登録</button>
+
+                        </form>
+                </section>
+            <table>
+                <tr>
+                    <td>
+                        <p class="btn">
+                        <a href="{% url 'blog:blog_list' %}">戻る</a>
+                    </td>
+                </tr>
+            </table>
+            </div>
+            {% include "blog/widgets/side_category.html" %}
+        </div>
+    </div>
+{% endblock contents %}
