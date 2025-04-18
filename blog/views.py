@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -126,5 +127,33 @@ class CategoryView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryView, self).get_context_data(**kwargs)
+        context["category_list"] = Category.objects.all()
+        return context
+
+
+class SearchPostView(ListView):
+    model = Blog
+    template_name = "blog/blog_list.html"
+
+    def get_queryset(self):
+        """
+        request.GETにはGETリクエストのパラメータが含まれています。
+        request.GET.get("q", None)でqパラメータの値を取得し、
+        値が存在しない場合はNoneを取得します。
+        """
+        query = self.request.GET.get("q", None)
+
+        if query is not None:
+            qs = Blog.objects.filter(
+                Q(title__icontains=query) | Q(category__category_name__icontains=query)
+            )
+            return qs
+
+        else:
+            qs = Blog.objects.all()
+            return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchPostView, self).get_context_data(**kwargs)
         context["category_list"] = Category.objects.all()
         return context

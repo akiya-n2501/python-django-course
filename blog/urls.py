@@ -8,6 +8,7 @@ from .views import (
     BlogListView,
     CategoryView,
     IndexView,
+    SearchPostView,
     create_done,
     delete_done,
     edit_done,
@@ -28,4 +29,5 @@ urlpatterns = [
     path("delete/<int:pk>/", BlogDeleteView.as_view(), name="delete"),
     path("delete_done/", delete_done, name="delete_done"),
     path("category/<str:category>/", CategoryView.as_view(), name="category"),
+    path("search_list/", SearchPostView.as_view(), name="search_list"),
 ]
