@@ -6,6 +6,7 @@ from .views import (
     BlogDetailView,
     BlogEditView,
     BlogListView,
+    CategoryView,
     IndexView,
     create_done,
     delete_done,
@@ -26,4 +27,5 @@ urlpatterns = [
     path("edit_done/", edit_done, name="edit_done"),
     path("delete/<int:pk>/", BlogDeleteView.as_view(), name="delete"),
     path("delete_done/", delete_done, name="delete_done"),
+    path("category/<str:category>/", CategoryView.as_view(), name="category"),
 ]

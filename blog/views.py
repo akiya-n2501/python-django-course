@@ -103,3 +103,28 @@ class BlogDeleteView(DeleteView):
 def delete_done(request):
     category_list = Category.objects.all()
     return render(request, "blog/delete_done.html", {"category_list": category_list})
+
+
+class CategoryView(ListView):
+    """
+    カテゴリ名でフィルタ検索
+    """
+
+    model = Blog
+    template_name = "blog/blog_list.html"
+
+    def get_queryset(self):
+        """
+        カテゴリでの絞り込み
+        """
+        category_name = self.kwargs["category"]
+        queryset = Blog.objects.filter(
+            # 外部参照先の列名を指定する場合はアンダースコア２つ
+            category__category_name=category_name
+        )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryView, self).get_context_data(**kwargs)
+        context["category_list"] = Category.objects.all()
+        return context
