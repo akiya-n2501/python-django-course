@@ -87,3 +87,19 @@ def edit_done(request):
     # 更新処理が正常終了した場合に呼ばれるテンプレートを指定
     category_list = Category.objects.all()
     return render(request, "blog/edit_done.html", {"category_list": category_list})
+
+
+class BlogDeleteView(DeleteView):
+    model = Blog
+    template_name = "blog/blog_confirm_delete.html"
+    success_url = reverse_lazy("blog:delete_done")
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogDeleteView, self).get_context_data(**kwargs)
+        context["category_list"] = Category.objects.all()
+        return context
+
+
+def delete_done(request):
+    category_list = Category.objects.all()
+    return render(request, "blog/delete_done.html", {"category_list": category_list})
